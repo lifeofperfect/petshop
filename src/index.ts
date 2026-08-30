@@ -8,9 +8,39 @@ const PORT = 8000;
 
 const app:Express  = express();
 
+type PetQueryParams = {
+    species?:string,
+    adopted?:'true' | 'false',
+    minAge?:string,
+    maxAge?:string
+}
 
-app.get("/", (req: Request, res: Response<Pet[]>): void=> {
-    res.json(pets)
+
+app.get("/", (req: Request<{}, unknown, {}, PetQueryParams>, res: Response<Pet[]>): void=> {
+    const {species, adopted, minAge, maxAge} = req.query
+
+    let filteredQuery:Pet[] = pets;
+
+    if(species){
+        filteredQuery = filteredQuery.filter((pet:Pet):boolean => pet.species.toLowerCase() === species.toLowerCase())
+    }
+
+    if(adopted){
+        filteredQuery = filteredQuery.filter((pet:Pet):boolean => pet.adopted === JSON.parse(adopted))
+    }
+
+    if(adopted){
+        filteredQuery = filteredQuery.filter((pet:Pet):boolean => pet.adopted === JSON.parse(adopted))
+    }
+
+    if(minAge){
+        filteredQuery = filteredQuery.filter((pet:Pet):boolean => pet.adopted >= JSON.parse(minAge))
+    }
+
+    if(maxAge){
+        filteredQuery = filteredQuery.filter((pet:Pet):boolean => pet.adopted <= JSON.parse(maxAge))
+    }
+    res.json(filteredQuery)
 })
 
 app.get('/:id', (req:Request<{id:string}>, res:Response<Pet|{message:string}>):void=> {

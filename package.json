@@ -1,7 +1,7 @@
 {
   "name": "petshelter",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API for an animal shelter — Express 5 and TypeScript, serving adoptable pets with filtering by species and adoption status.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,7 +9,13 @@
     "dev": "tsc --watch --preserveWatchOutput & node --watch ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "pet-shelter",
+    "express",
+    "typescript",
+    "rest-api",
+    "node"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
